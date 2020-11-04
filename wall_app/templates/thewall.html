@@ -27,8 +27,9 @@
             <div id="message_header">
                 <!-- {% now 'M. d, Y G:m' %} -->
                 <!-- Calculate the time passed since the message was created - 'timesince' argument defaults to now -->
-                
-                <h3>{{message.user.first_name}} {{message.user.last_name}} - {{message.created_at|date:'M. d, Y'}} - {{ message.created_at|timesince }} ago</h3>
+                <h3>{{message.user.first_name}} {{message.user.last_name}} - {{message.created_at|date:'M. d, Y'}} - {{ message.created_at|timesince}} ago</h3> 
+                <input type="hidden" value="{% now 'U' %}" id="utc_now">
+                <input type="hidden" value="{{message.created_at|date:'U'}}" id="utc_elapsed">
                 {% if message.user.id == request.session.user_id %}
                 <form action="/delete_msg/{{message.id}}" method="post">
                     {% csrf_token %}
