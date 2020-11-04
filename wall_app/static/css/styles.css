@@ -97,14 +97,14 @@
     margin-left:55%;
 }
 #posted_container div{
-    margin-left:20px;
+    margin-left:40px;
 }
 #posted_container p{
     margin-left:20px;
 }
 
 #posted_container .new_post_container{
-    margin-left:0px;
+    margin-left:20px;
 }
 #posted_container #message_header {
     margin-left:10px;

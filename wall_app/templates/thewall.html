@@ -23,9 +23,12 @@
         </form>
         </div>
         {% for message in all_messages %}
-        <div id="posted_container">
+        <div id="posted_container"> 
             <div id="message_header">
-                <h3>{{message.user.first_name}} {{message.user.last_name}} - {{message.created_at}}</h3>
+                <!-- {% now 'M. d, Y G:m' %} -->
+                <!-- Calculate the time passed since the message was created - 'timesince' argument defaults to now -->
+                
+                <h3>{{message.user.first_name}} {{message.user.last_name}} - {{message.created_at|date:'M. d, Y'}} - {{ message.created_at|timesince }} ago</h3>
                 {% if message.user.id == request.session.user_id %}
                 <form action="/delete_msg/{{message.id}}" method="post">
                     {% csrf_token %}
@@ -39,7 +42,7 @@
                 <P>No comments to display</P>
                 {% else %}
                     {% for comment in message.comments.all %}
-                    <h4>{{comment.user.first_name}} {{comment.user.last_name}} - {{comment.created_at}}</h4>
+                    <h4>{{comment.user.first_name}} {{comment.user.last_name}} - {{comment.created_at|date:'M. d, Y'}} - {{ comment.created_at|timesince }} ago</h4>
                     <P>{{comment.content}}</P>
                     {% endfor %}
                 {% endif %}
