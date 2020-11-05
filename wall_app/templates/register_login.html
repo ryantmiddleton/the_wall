@@ -15,7 +15,8 @@
     <script>
         $(document).ready(function(){
             $('#register_frm').submit(function(){
-                errormsgs={}
+                errormsgs={};
+                errormsg="";
                 if($('#first_name_txt').val() == ""){
                     errormsgs['first_name'] = "The first name field is blank";
                 }
@@ -36,16 +37,20 @@
                 }
                 count=0;
                 $.each(errormsgs, function(key, value) {
-                    alert(value);
+                    errormsg += value + "\n"
                     count++;
                 })
                 if(count==0){
                     return true;
                 }
-                else return false;
+                else {
+                    alert(errormsg);
+                    return false;
+                }
             })
             $('#login_frm').submit(function(){
-                errormsgs={}
+                errormsgs={};
+                errormsg="";
                 if($('#login_email_txt').val() == ""){
                     errormsgs['email'] = "The email field is blank";
                 }
@@ -54,13 +59,17 @@
                 }
                 count=0;
                 $.each(errormsgs, function(key, value) {
-                    alert(value);
+                    errormsg += value + "\n"
                     count++;
                 })
                 if(count==0){
                     return true;
                 }
-                else return false;
+                else {
+                    alert(errormsg);
+                    return false;
+                }
+                
             })
         })
     </script>
@@ -119,7 +128,7 @@
             <input type="submit" value = "Login">
             </form>
         </div>
-        <!-- <table id="all_users_table">
+        <table id="all_users_table">
             <tr>
                 <td>ID</td>
                 <td>First Name</td>
@@ -136,7 +145,7 @@
                 <td>{{user.password}}</td>
             </tr>
                 {% endfor %}
-        </table> -->
+        </table>
     </div>
 </body>
 </html>

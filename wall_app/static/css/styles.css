@@ -78,45 +78,52 @@
 #wall_header a {
     margin-left:5%; 
 }
-.new_post_container{
-    margin-top:15px;
+.post_container{
+    margin-top:5px;
 }
-.new_post_container *{
+.post_container *{
     display:block;
 }
-.new_post_container textarea {
+#message_txt {
+    width: 60%;
+    height:150px;
     margin-left:20px;
-    width:60%;
-    height:100px;
     text-align:top;
     padding-top:0px;
     padding-left:0px;
 }
-.new_post_container input[type=submit] {
-    margin-top:10px;
+.post_container input[type=submit] {
     margin-left:55%;
+    margin-top:10px;
 }
-#posted_container div{
+.message_container {
+    margin-top:10px;
     margin-left:40px;
 }
-#posted_container p{
-    margin-left:20px;
-}
-
-#posted_container .new_post_container{
-    margin-left:20px;
-}
-#posted_container #message_header {
-    margin-left:10px;
-}
-#posted_container #message_header *{
+.message_header *{
     display:inline-block;
 }
-#comment_container h4{
-    margin:10px 0px;
-}
-#comment_container p{
-    margin-left:0px;
+
+.post_comment_container{
+    margin-left:20px;
 }
 
+.comment_container {
+    margin-top:10px;
+    margin-left:20px;
+}
 
+.comment_container *{
+    display:inline-block;
+}
+.comment_txt {
+    width:20%;
+    height:85px; 
+    text-align:top;
+    padding-top:0px;
+    padding-left:0px;
+}
+.post_comment_container input[type=submit]{
+    display:block;
+    margin-left:13%;
+}

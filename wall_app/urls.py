@@ -9,5 +9,6 @@ urlpatterns = [
     path('newcomment', views.newComment),
     path('wall', views.wall),
     path('delete_msg/<int:message_id>', views.deleteMsg),
+    path('delete_comment/<int:comment_id>', views.deleteComment),
     path('logout', views.logout) 
 ]

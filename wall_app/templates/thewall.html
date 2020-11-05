@@ -14,7 +14,7 @@
             <h3>Welcome {{request.session.user_name}}</h3>
             <a href="/logout">Log Off</a>
         </div>
-        <div class="new_post_container">
+        <div class="post_container">
         <form action="/newpost" method="post" name="new_post">
             {% csrf_token %}
             <h2>Post a message</h2>
@@ -23,8 +23,8 @@
         </form>
         </div>
         {% for message in all_messages %}
-        <div id="posted_container"> 
-            <div id="message_header">
+        <div class="message_container"> 
+            <div class="message_header">
                 <!-- {% now 'M. d, Y G:m' %} -->
                 <!-- Calculate the time passed since the message was created - 'timesince' argument defaults to now -->
                 <h3>{{message.user.first_name}} {{message.user.last_name}} - {{message.created_at|date:'M. d, Y'}} - {{ message.created_at|timesince}} ago</h3> 
@@ -36,24 +36,33 @@
                     <input type="submit" id="delete_btn"  value="Delete">
                 </form>
                 {% endif %}
+                <br>
+                <p>{{message.content}}</p>
             </div>
-            <p>{{message.content}}</p>
-            <div id="comment_container">
+            <div class="comment_container">
                 {% if message.comments.all == None %}
                 <P>No comments to display</P>
                 {% else %}
                     {% for comment in message.comments.all %}
-                    <h4>{{comment.user.first_name}} {{comment.user.last_name}} - {{comment.created_at|date:'M. d, Y'}} - {{ comment.created_at|timesince }} ago</h4>
+                    <h5>{{comment.user.first_name}} {{comment.user.last_name}} - {{comment.created_at|date:'M. d, Y'}} - {{ comment.created_at|timesince }} ago</h5>
+                        {% if comment.user.id == request.session.user_id %}
+                        <form action="/delete_comment/{{comment.id}}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" id="delete_btn"  value="Delete">
+                        </form>
+                        {% endif %}
+                    <br>
                     <P>{{comment.content}}</P>
+                    <br>
                     {% endfor %}
                 {% endif %}
             </div>
-            <div class="new_post_container">
+            <div class="post_comment_container">
                 <form action="/newcomment" method="post" name="new_comment">
                     {% csrf_token %}
                     <p>Post a comment</p>
                     <input type="hidden" name="message_id" value="{{message.id}}">
-                    <textarea  id="comment_txt" name="comment_txt"></textarea>
+                    <textarea  class="comment_txt" name="comment_txt"></textarea>
                     <input type="submit" value="Post a comment">
                 </form>
             </div>

@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from wall_app.models import User, Message, Comment
 from django.contrib import messages
-
 import bcrypt
 
 # Create your views here.
@@ -23,7 +22,7 @@ def wall(request):
 def register(request):
      # include some logic to validate user input before adding them to the database!
     if request.method == "POST":
-        errors = User.objects.validate_data(request.POST)
+        errors = User.objects.validate_registration(request.POST)
         if len(errors) > 0:
             for key, errormsg in errors.items():
                 messages.error(request, errormsg)
@@ -60,9 +59,13 @@ def login(request):
                 request.session['user_name'] = f'{logged_user.first_name} {logged_user.last_name}'
                 # never render on a post, always redirect!
                 return redirect("/wall")
+            else:
+                messages.error(request, "Incorrect password.")
+        else:
+            messages.error(request, "Incorrect username.")
+            return redirect("/wall")
         # if we didn't find anything in the database by searching by username or if the passwords don't match, 
         # redirect back to a safe route
-        return redirect("/")
     return redirect("/")
 
 def newPost(request):
@@ -87,6 +90,12 @@ def newComment(request):
 def deleteMsg(request, message_id):
     if request.method == "POST":
         Message.objects.get(id=message_id).delete()
+        return redirect("/wall")
+    return redirect("/")
+
+def deleteComment(request, comment_id):
+    if request.method == "POST":
+        Comment.objects.get(id=comment_id).delete()
         return redirect("/wall")
     return redirect("/")
 
